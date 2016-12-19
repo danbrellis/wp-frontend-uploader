@@ -17,6 +17,13 @@ class FU_WP_Media_List_Table extends WP_Media_List_Table {
 		global $lost, $wpdb, $wp_query, $post_mime_types, $avail_post_mime_types;
 
 		$this->items = $wp_query->posts;
+		
+		$this->set_pagination_args( array(
+			'total_items' => $wp_query->found_posts,
+			'total_pages' => $wp_query->max_num_pages,
+			'per_page' => $wp_query->query_vars['posts_per_page'],
+		) );
+		
 		/* -- Register the Columns -- */
 		$columns = $this->get_columns();
 		$hidden = array(
